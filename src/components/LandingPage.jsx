@@ -294,7 +294,7 @@ function LandingPage() {
               <div className="glass-morphism rounded-3xl p-8 backdrop-blur-xl">
                 <div className="text-center mb-6">
                   <div className="text-6xl mb-2">🏆</div>
-                  <h3 className="text-2xl font-bold text-white">Лучшая химчистка 2024</h3>
+                  <h3 className="text-2xl font-bold text-white">Лучшая химчистка 2026</h3>
                   <p className="text-white/60">По версии профессионального сообщества</p>
                 </div>
                 <div className="space-y-4">
@@ -398,7 +398,7 @@ function LandingPage() {
             </div>
           </div>
           <div className="border-t border-white/10 mt-8 pt-8 text-center text-white/30 text-sm">
-            © 2026 Химчистка «Лилия». Все права защищены.Ц
+            © 2026 Химчистка «Лилия». Все права защищены.
           </div>
         </div>
       </footer>

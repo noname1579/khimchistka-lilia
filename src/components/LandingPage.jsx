@@ -368,14 +368,14 @@ function LandingPage() {
                   <div className="text-white/50 text-sm">Премиум класс</div>
                 </div>
               </div>
-              <p className="text-white/40 text-sm">Профессиональная химчистка с 2010 года</p>
+              <p className="text-white/40 text-sm">Профессиональная химчистка с 2026 года</p>
             </div>
             <div>
               <h4 className="text-white font-semibold mb-4">Контакты</h4>
               <div className="space-y-2 text-white/40 text-sm">
-                <p className="hover:text-white transition-colors">📞 8 (800) 555-35-35</p>
+                <p className="hover:text-white transition-colors">📞 8 (951) 500-65-20</p>
                 <p className="hover:text-white transition-colors">✉️ info@lilia.ru</p>
-                <p className="hover:text-white transition-colors">📍 г. Москва, ул. Цветочная, 15</p>
+                <p className="hover:text-white transition-colors">📍 г. Ростов-на-Дону, ул. Красноармейская, 11</p>
               </div>
             </div>
             <div>
@@ -398,7 +398,7 @@ function LandingPage() {
             </div>
           </div>
           <div className="border-t border-white/10 mt-8 pt-8 text-center text-white/30 text-sm">
-            © 2026 Химчистка «Лилия». Все права защищены. Сделано с ❤️
+            © 2026 Химчистка «Лилия». Все права защищены.Ц
           </div>
         </div>
       </footer>

@@ -176,7 +176,6 @@ function AdminPanel() {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      {/* Header */}
       <header className="bg-gradient-to-r from-purple-900 to-pink-900 text-white sticky top-0 z-50 shadow-2xl">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
@@ -225,7 +224,6 @@ function AdminPanel() {
         </div>
       </div>
 
-      {/* Navigation */}
       <div className="container mx-auto px-4 mt-4">
         <div className="flex gap-2 flex-wrap bg-gray-800/50 rounded-xl p-2 backdrop-blur-sm">
           {[
@@ -250,10 +248,8 @@ function AdminPanel() {
         </div>
       </div>
 
-      {/* Content */}
       <div className="container mx-auto px-4 py-6">
         <AnimatePresence mode="wait">
-          {/* Overview Section */}
           {activeSection === 'overview' && (
             <motion.div
               key="overview"
@@ -262,7 +258,6 @@ function AdminPanel() {
               exit={{ opacity: 0, y: -20 }}
               className="space-y-6"
             >
-              {/* Recent Activity */}
               <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                   <span>📊</span> Последние заявки
@@ -285,7 +280,6 @@ function AdminPanel() {
             </motion.div>
           )}
 
-          {/* Requests Section */}
           {activeSection === 'requests' && (
             <motion.div
               key="requests"
@@ -373,7 +367,6 @@ function AdminPanel() {
             </motion.div>
           )}
 
-          {/* Users Section */}
           {activeSection === 'users' && (
             <motion.div
               key="users"
@@ -418,7 +411,6 @@ function AdminPanel() {
             </motion.div>
           )}
 
-          {/* Services Section */}
           {activeSection === 'services' && (
             <motion.div
               key="services"
@@ -475,7 +467,6 @@ function AdminPanel() {
             </motion.div>
           )}
 
-          {/* Masters Section */}
           {activeSection === 'masters' && (
             <motion.div
               key="masters"

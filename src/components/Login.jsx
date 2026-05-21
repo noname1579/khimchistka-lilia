@@ -54,7 +54,6 @@ function Login() {
 
   return (
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-5">
-      {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-pink-800 to-indigo-900"></div>
       <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow"></div>
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow" style={{ animationDelay: '1s' }}></div>
@@ -123,7 +122,6 @@ function Login() {
             </Link>
           </div>
 
-          {/* Быстрый вход для демо */}
           <div className="mt-6 pt-6 border-t border-white/10">
             <button
               onClick={() => setShowUsers(!showUsers)}

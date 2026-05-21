@@ -109,7 +109,6 @@
   animation: scaleIn 0.4s ease-out;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }

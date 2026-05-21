@@ -165,7 +165,6 @@ function UserDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-gradient-to-r from-purple-600 to-pink-600 text-white sticky top-0 z-50 shadow-lg">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
@@ -219,7 +218,6 @@ function UserDashboard() {
         </div>
       </header>
 
-      {/* Tabs */}
       <div className="container mx-auto px-4 mt-6">
         <div className="flex gap-2 bg-white rounded-xl p-1 shadow-md">
           <button
@@ -243,7 +241,6 @@ function UserDashboard() {
         </div>
       </div>
 
-      {/* Content */}
       <div className="container mx-auto px-4 py-6">
         <AnimatePresence mode="wait">
           {activeTab === 'new' && (

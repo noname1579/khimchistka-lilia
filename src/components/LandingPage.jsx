@@ -30,7 +30,6 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Animated Background */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-pink-800 to-indigo-900 opacity-95"></div>
         <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow"></div>
@@ -38,7 +37,6 @@ function LandingPage() {
         <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow" style={{ animationDelay: '2s' }}></div>
       </div>
 
-      {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'glass-morphism' : 'bg-transparent'}`}>
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <motion.div
@@ -97,7 +95,6 @@ function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section id="Главная" className="relative z-10 min-h-screen flex items-center pt-20">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -178,7 +175,6 @@ function LandingPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-purple-900/50 to-transparent"></div>
               </div>
               
-              {/* Floating cards */}
               <motion.div
                 animate={{ y: [0, -20, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
@@ -211,7 +207,6 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* Services Section */}
       <section id="Услуги" className="relative z-10 py-24">
         <div className="container mx-auto px-6">
           <motion.div
@@ -256,7 +251,6 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* Features Section */}
       <section id="Преимущества" className="relative z-10 py-24">
         <div className="container mx-auto px-6">
           <motion.div
@@ -331,7 +325,6 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="relative z-10 py-24">
         <div className="container mx-auto px-6">
           <motion.div
@@ -364,7 +357,6 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="relative z-10 bg-black/50 backdrop-blur-xl py-12 mt-24">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8">

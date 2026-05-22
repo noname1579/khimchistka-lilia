@@ -126,3 +126,132 @@
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #764ba2, #f093fb);
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  /* Увеличиваем отступы для касаний */
+  button, 
+  a,
+  [role="button"],
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+    min-height: 44px;
+  }
+  
+  /* Убираем hover эффекты на мобильных */
+  @media (hover: hover) {
+    .hover-lift:hover {
+      transform: none;
+    }
+  }
+  
+  /* Оптимизация скролла */
+  .overflow-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Увеличиваем размер шрифта для лучшей читаемости */
+  body {
+    font-size: 16px;
+  }
+  
+  /* Уменьшаем отступы в контейнерах */
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  /* Адаптивные карточки */
+  .card-mobile {
+    padding: 16px;
+    margin: 12px;
+  }
+  
+  /* Меньшие кнопки на мобильных */
+  .btn-mobile {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  /* Адаптивные сетки */
+  .grid-mobile {
+    gap: 12px;
+  }
+}
+
+/* Для очень маленьких экранов (iPhone SE и подобные) */
+@media (max-width: 380px) {
+  .container {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .text-xs-mobile {
+    font-size: 0.7rem;
+  }
+  
+  .card-padding-mobile {
+    padding: 12px;
+  }
+  
+  .gap-mobile {
+    gap: 8px;
+  }
+}
+
+/* Для планшетов */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  
+  .grid-tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Для безопасной зоны (iPhone X и новее) */
+@supports (padding: max(0px)) {
+  .safe-area-padding {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Адаптивные анимации для мобильных (уменьшаем для производительности) */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

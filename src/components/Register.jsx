@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
-import { eventBus, EVENTS, forceRefreshAll } from '../utils/eventBus';
+import { authAPI } from '../services/api';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -98,7 +98,7 @@ function Register() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -108,45 +108,57 @@ function Register() {
     
     setLoading(true);
     
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    
-    if (users.find(u => u.login === formData.login)) {
-      toast.error('Пользователь с таким логином уже существует');
+    try {
+      // Отправляем запрос на сервер
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fio: formData.fio.trim(),
+          phone: formData.phone,
+          email: formData.email.toLowerCase(),
+          login: formData.login.toLowerCase(),
+          password: formData.password
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        toast.error(data.error || 'Ошибка регистрации');
+        setLoading(false);
+        return;
+      }
+      
+      // Также сохраняем в localStorage для синхронизации
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const newUser = {
+        id: data.id,
+        fio: formData.fio.trim(),
+        phone: formData.phone,
+        email: formData.email.toLowerCase(),
+        login: formData.login.toLowerCase(),
+        password: formData.password,
+        role: 'user',
+        avatar: '👤',
+        createdAt: new Date().toISOString()
+      };
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      
+      // Отправляем событие для обновления админки
+      window.dispatchEvent(new Event('storage'));
+      
+      toast.success('Регистрация успешна! Теперь войдите в систему.');
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 1500);
+    } catch (error) {
+      console.error('Ошибка регистрации:', error);
+      toast.error('Ошибка соединения с сервером');
+    } finally {
       setLoading(false);
-      return;
     }
-    
-    if (users.find(u => u.email === formData.email)) {
-      toast.error('Пользователь с таким email уже существует');
-      setLoading(false);
-      return;
-    }
-
-    const newUser = {
-      id: Date.now(),
-      fio: formData.fio.trim(),
-      phone: formData.phone,
-      email: formData.email.toLowerCase(),
-      login: formData.login.toLowerCase(),
-      password: formData.password,
-      role: 'user',
-      avatar: '👤',
-      createdAt: new Date().toISOString()
-    };
-    
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-    
-    console.log('✅ Новый пользователь зарегистрирован:', newUser);
-    console.log('📋 Все пользователи:', JSON.parse(localStorage.getItem('users')));
-    
-    // ПРИНУДИТЕЛЬНОЕ ОБНОВЛЕНИЕ ВСЕХ КОМПОНЕНТОВ
-    forceRefreshAll();
-    
-    toast.success('Регистрация успешна! Теперь войдите в систему.');
-    setTimeout(() => {
-      window.location.href = '/login';
-    }, 1500);
   };
 
   return (

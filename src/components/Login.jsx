@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
-import { authAPI } from '../services/dbAPI';
+import { authAPI } from '../services/api';
 
 function Login() {
   const [login, setLogin] = useState('');
@@ -13,39 +13,58 @@ function Login() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const loadUsers = async () => {
-      const { data } = await authAPI.getAllUsers?.() || { data: [] };
-      setUsers(data.filter(u => u.role !== 'admin'));
-    };
-    loadUsers();
+    // Загружаем тестовых пользователей из localStorage для демо
+    const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    setUsers(storedUsers.filter(u => u.role !== 'admin'));
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const { user, error } = await authAPI.login(login, password);
+    // Проверка для демо-режима (локальное хранилище)
+    const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    const localUser = storedUsers.find(u => u.login === login && u.password === password);
+    
+    if (localUser) {
+      localStorage.setItem('token', `user-token-${localUser.id}`);
+      localStorage.setItem('isAdmin', localUser.role === 'admin' ? 'true' : 'false');
+      localStorage.setItem('userId', localUser.id);
+      localStorage.setItem('userName', localUser.fio);
+      
+      if (localUser.role === 'admin') {
+        toast.success('Добро пожаловать, Администратор! 👑');
+        window.location.href = '/admin';
+      } else {
+        toast.success(`С возвращением, ${localUser.fio.split(' ')[0]}! 🎉`);
+        window.location.href = '/dashboard';
+      }
+      setLoading(false);
+      return;
+    }
 
+    // Если не нашли в localStorage, пробуем через API
+    const { user, error } = await authAPI.login(login, password);
+    
     if (error) {
       toast.error(error);
       setLoading(false);
       return;
     }
 
-    if (user.role === 'admin') {
-      localStorage.setItem('token', 'admin-token');
-      localStorage.setItem('isAdmin', 'true');
+    if (user) {
+      localStorage.setItem('token', user.token || `user-token-${user.id}`);
+      localStorage.setItem('isAdmin', user.role === 'admin' ? 'true' : 'false');
       localStorage.setItem('userId', user.id);
       localStorage.setItem('userName', user.fio);
-      toast.success('Добро пожаловать, Администратор! 👑');
-      window.location.href = '/admin';
-    } else {
-      localStorage.setItem('token', `user-token-${user.id}`);
-      localStorage.setItem('isAdmin', 'false');
-      localStorage.setItem('userId', user.id);
-      localStorage.setItem('userName', user.fio);
-      toast.success(`С возвращением, ${user.fio.split(' ')[0]}! 🎉`);
-      window.location.href = '/dashboard';
+      
+      if (user.role === 'admin') {
+        toast.success('Добро пожаловать, Администратор! 👑');
+        window.location.href = '/admin';
+      } else {
+        toast.success(`С возвращением, ${user.fio.split(' ')[0]}! 🎉`);
+        window.location.href = '/dashboard';
+      }
     }
     setLoading(false);
   };
@@ -151,19 +170,27 @@ function Login() {
                   <div className="bg-white/5 rounded-xl p-3">
                     <p className="text-white/40 text-xs mb-2">👥 Тестовые пользователи (пароль: 123456):</p>
                     <div className="space-y-1 max-h-48 overflow-y-auto">
-                      {users.map(user => (
-                        <button
-                          key={user.id}
-                          onClick={() => quickLogin(user.login, user.password)}
-                          className="w-full flex justify-between items-center p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all"
-                        >
-                          <div className="flex items-center gap-2">
-                            <span>{user.avatar || '👤'}</span>
-                            <span className="text-white text-sm">{user.login}</span>
-                          </div>
-                          <span className="text-purple-400 text-xs">Войти →</span>
-                        </button>
-                      ))}
+                      <button
+                        onClick={() => quickLogin('ivan', '123456')}
+                        className="w-full flex justify-between items-center p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all"
+                      >
+                        <span className="text-white text-sm">ivan (Иван)</span>
+                        <span className="text-purple-400 text-xs">Войти →</span>
+                      </button>
+                      <button
+                        onClick={() => quickLogin('anna', '123456')}
+                        className="w-full flex justify-between items-center p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all"
+                      >
+                        <span className="text-white text-sm">anna (Анна)</span>
+                        <span className="text-purple-400 text-xs">Войти →</span>
+                      </button>
+                      <button
+                        onClick={() => quickLogin('mikhail', '123456')}
+                        className="w-full flex justify-between items-center p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all"
+                      >
+                        <span className="text-white text-sm">mikhail (Михаил)</span>
+                        <span className="text-purple-400 text-xs">Войти →</span>
+                      </button>
                     </div>
                   </div>
                 </motion.div>
